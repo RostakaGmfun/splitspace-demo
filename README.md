@@ -5,12 +5,12 @@ It currently features almost nothing, though.
 To build proceed aas follows:
 ```bash
 $ ./install-splitspace.sh
-mkdir build
-cd build
-cmake ..
-make
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make
 ```
 To run:
 ```bash
-build/splitspace-demo
+$ build/splitspace-demo
 ```
