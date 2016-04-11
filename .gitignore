@@ -1,3 +1,4 @@
-build/
-splitspace-build/
+build
+splitspace-build
 splitspace
+blender
