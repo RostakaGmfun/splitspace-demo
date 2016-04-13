@@ -42,7 +42,8 @@ public:
         if(suzanne == objects.end()) {
             return 1;
         }
-        m_camera->setLookPosition((*suzanne)->getPos());
+        m_monkeyEntity = static_cast<Entity*>(*suzanne);
+        m_camera->setLookPosition(m_monkeyEntity->getPos());
         m_engine->renderManager->setCamera(m_camera);
         m_engine->renderManager->setScene(m_scene);
         m_engine->eventManager->addListener(this);
@@ -81,6 +82,9 @@ private:
     }
 
     void handleUpdate(const UpdateEvent *uev) {
+        glm::vec3 rot = m_monkeyEntity->getRot();
+        rot.y+=0.1*uev->delta;
+        m_monkeyEntity->setRot(rot);
         m_camera->update(uev->delta);
         m_scene->update(uev->delta);
     }
@@ -89,6 +93,7 @@ private:
     Engine *m_engine;
     Scene *m_scene;
     LookatCamera *m_camera;
+    Entity *m_monkeyEntity;
 };
 
 int main() {
