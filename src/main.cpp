@@ -6,6 +6,8 @@
 #include <splitspace/Scene.hpp>
 #include <splitspace/Camera.hpp>
 #include <splitspace/Entity.hpp>
+#include <splitspace/RenderTechnique.hpp>
+#include <splitspace/ForwardRenderTechnique.hpp>
 
 #include <iostream>
 #include <algorithm>
@@ -24,10 +26,18 @@ public:
             return 1;
         }
 
+        m_renderTechnique = new ForwardRenderTechnique(m_engine);
+
+        if(!m_renderTechnique->init()) {
+            return 1;
+        }
+
         m_scene = static_cast<Scene *>(m_engine->resManager->loadResource("demoScene"));
         if(!m_scene) {
             return 1;
         }
+
+        m_renderTechnique->setScene(m_scene);
 
         m_camera = new LookatCamera(m_engine->config->window.width,
                                  m_engine->config->window.height,
@@ -44,8 +54,12 @@ public:
         }
         m_monkeyEntity = static_cast<Entity*>(*suzanne);
         m_camera->setLookPosition(m_monkeyEntity->getPos());
+
+        m_renderTechnique->setViewCamera(m_camera);
+
         m_engine->renderManager->setCamera(m_camera);
         m_engine->renderManager->setScene(m_scene);
+        m_engine->renderManager->setRenderTechnique(m_renderTechnique);
         m_engine->eventManager->addListener(this);
         m_engine->mainLoop();
 
@@ -94,6 +108,7 @@ private:
     Scene *m_scene;
     LookatCamera *m_camera;
     Entity *m_monkeyEntity;
+    ForwardRenderTechnique *m_renderTechnique;
 };
 
 int main() {
