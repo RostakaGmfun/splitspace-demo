@@ -7,6 +7,18 @@
     },
 
     {
+        "name": "wagenMaterial",
+        "ambient":     [0.8, 0.8, 0.8],
+        "diffuse":     [0.45, 0.77, 0.2, 1.0],
+        "specular":    [0.2, 0, 0.95],
+        "diffuseMap":  "wagen.jpg",
+        "mapping": {
+            "filtering": "linear",
+            "mipmapping": true
+        }
+    },
+
+    {
         "name": "demoPlaneMaterial",
         "ambient":     [0.8, 0.8, 0.8],
         "diffuse":     [0.45, 0.77, 0.2, 1.0],

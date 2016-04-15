@@ -42,11 +42,11 @@ public:
         m_camera = new LookatCamera(m_engine->config->window.width,
                                  m_engine->config->window.height,
                                  45.f, 1.0f, 1000.f);
-        m_camera->setPosition(glm::vec3(0, 0, 10));
+        m_camera->setPosition(glm::vec3(0, 0, 5));
         const auto &objects = m_scene->getRootNode()->getChildren();
         const auto &suzanne = std::find_if(objects.begin(), objects.end(),
                               [](Entity *e) {
-                                return e->getName() == "Suzanne1";
+                                return e->getName() == "cart";
                               });
 
         if(suzanne == objects.end()) {
@@ -96,9 +96,9 @@ private:
     }
 
     void handleUpdate(const UpdateEvent *uev) {
-        glm::vec3 rot = m_monkeyEntity->getRot();
-        rot.y+=0.1*uev->delta;
-        m_monkeyEntity->setRot(rot);
+//        glm::vec3 rot = m_monkeyEntity->getRot();
+//        rot.y+=0.1*uev->delta;
+//        m_monkeyEntity->setRot(rot);
         m_camera->update(uev->delta);
         m_scene->update(uev->delta);
     }
