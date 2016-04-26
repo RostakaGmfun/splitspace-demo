@@ -12,8 +12,8 @@ uniform Material material;
 void main() {
     _OUT0 = splitspace_Material(material, diffuseMap, Texcoord);
     for(int i = 0;i<numLights;i++) {
-        _OUT0.xyz+=splitspace_Lighting(Position,
-                                       Normal, lights[i], material);
+        _OUT0.xyz = splitspace_Lighting(Position,
+                                       Normal, lights[i], material, _OUT0.xyz);
     }
 }
 

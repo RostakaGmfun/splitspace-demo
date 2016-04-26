@@ -5,7 +5,7 @@
             "mesh": "wagen.obj",
             "material": "wagenMaterial",
             "transform": {
-                "position": [0,-5,0],
+                "position": [0,-5,1],
                 "rotation": [0,45,0],
                 "scaling":  [2, 2, 2]
             }
@@ -14,49 +14,29 @@
 
     "lights": [
         {
-            "name": "sceneAmbient",
+            "name": "AmbientLight",
             "type": "ambient",
-            "diffuse": [0.6, 0.6, 1]
+            "diffuse": [0.1, 0.1, 0.1]
         },
 
         {
-            "name": "DirLight",
+            "name": "DirectionalLight",
             "type": "sun",
             "diffuse": [1, 1, 1],
+            "power": 0.3,
             "transform": {
                 "rotation": [20,45, 80]
             }
         },
-
         {
-            "name": "PointLight1",
+            "name": "PointLight",
             "type": "point",
-            "diffuse": [1, 0, 0],
-            "power": 100,
+            "diffuse": [0.5, 0.5, 1],
+            "power": 0.5,
+            "attenuation": [1, 0.0000014, 0.00001],
             "transform": {
-                "position": [20,45, 80]
-            }
-        },
-
-        {
-            "name": "PointLight2",
-            "type": "point",
-            "diffuse": [0, 1, 0],
-            "power": 100,
-            "transform": {
-                "position": [20,45, 80]
-            }
-        },
-
-        {
-            "name": "PointLight3",
-            "type": "point",
-            "diffuse": [0, 0, 1],
-            "power": 100,
-            "transform": {
-                "position": [20,45, 80]
+                "position": [0, 0, -2]
             }
         }
-
     ]
 }

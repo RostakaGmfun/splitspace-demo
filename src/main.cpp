@@ -6,11 +6,14 @@
 #include <splitspace/Scene.hpp>
 #include <splitspace/Camera.hpp>
 #include <splitspace/Entity.hpp>
+#include <splitspace/Light.hpp>
 #include <splitspace/RenderTechnique.hpp>
 #include <splitspace/ForwardRenderTechnique.hpp>
 
 #include <iostream>
 #include <algorithm>
+#include <chrono>
+#include <cmath>
 
 using namespace splitspace;
 
@@ -44,16 +47,30 @@ public:
                                  45.f, 1.0f, 1000.f);
         m_camera->setPosition(glm::vec3(0, 0, 5));
         const auto &objects = m_scene->getRootNode()->getChildren();
-        const auto &suzanne = std::find_if(objects.begin(), objects.end(),
+        const auto &cart= std::find_if(objects.begin(), objects.end(),
                               [](Entity *e) {
                                 return e->getName() == "cart";
                               });
 
-        if(suzanne == objects.end()) {
+        const auto &pointLight = std::find_if(objects.begin(), objects.end(),
+                              [](Entity *e) {
+                                return e->getName() == "PointLight";
+                              });
+
+        const auto &dirLight = std::find_if(objects.begin(), objects.end(),
+                              [](Entity *e) {
+                                return e->getName() == "DirectionalLight";
+                              });
+
+
+        if(pointLight == objects.end() ||
+           dirLight == objects.end()) {
             return 1;
         }
-        m_monkeyEntity = static_cast<Entity*>(*suzanne);
-        m_camera->setLookPosition(m_monkeyEntity->getPos());
+
+        m_pointLight = static_cast<Light*>(*pointLight);
+        m_dirLight = static_cast<Light*>(*dirLight);
+        m_camera->setLookPosition((*cart)->getPos());
 
         m_renderTechnique->setViewCamera(m_camera);
 
@@ -96,18 +113,26 @@ private:
     }
 
     void handleUpdate(const UpdateEvent *uev) {
-//        glm::vec3 rot = m_monkeyEntity->getRot();
-//        rot.y+=0.1*uev->delta;
-//        m_monkeyEntity->setRot(rot);
+        using namespace std::chrono;
+        static int t = 1;
+        const float radius = 1.5f;
+        float red = std::fabs(std::sin(t/50.f));
+        float blue = std::fabs(std::cos(t/50.f));
+        m_pointLight->setDiffuse(glm::vec3(red, blue, 1-red));
+        const auto &pos = m_pointLight->getPos();
+        m_pointLight->setPos(glm::vec3(std::sin(t/50.f)*radius,
+                             pos.y, std::cos(t/50.f)*radius));
         m_camera->update(uev->delta);
         m_scene->update(uev->delta);
+        t++;
     }
 
 private:
     Engine *m_engine;
     Scene *m_scene;
     LookatCamera *m_camera;
-    Entity *m_monkeyEntity;
+    Light *m_pointLight;
+    Light *m_dirLight;
     ForwardRenderTechnique *m_renderTechnique;
 };
 
