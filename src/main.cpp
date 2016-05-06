@@ -9,6 +9,7 @@
 #include <splitspace/Light.hpp>
 #include <splitspace/RenderTechnique.hpp>
 #include <splitspace/ForwardRenderTechnique.hpp>
+#include <splitspace/DefferedRenderTechnique.hpp>
 
 #include <iostream>
 #include <algorithm>
@@ -29,7 +30,7 @@ public:
             return 1;
         }
 
-        m_renderTechnique = new ForwardRenderTechnique(m_engine);
+        m_renderTechnique = new DefferedRenderTechnique(m_engine);
 
         if(!m_renderTechnique->init()) {
             return 1;
@@ -133,7 +134,7 @@ private:
     LookatCamera *m_camera;
     Light *m_pointLight;
     Light *m_dirLight;
-    ForwardRenderTechnique *m_renderTechnique;
+    DefferedRenderTechnique *m_renderTechnique;
 };
 
 int main() {

@@ -15,6 +15,38 @@
                 {"_NUM_LIGHTS_": "numLights"},
                 {"_MATERIAL_STRUCT_": "material"}
             ]
+        },
+
+        {
+            "name": "defferedShader_pass1",
+            "vsName": "deffered1.vs",
+            "fsName": "deffered1.fs",
+            "vsVersion": 330,
+            "fsVersion": 330,
+            "inputFormat": "VERTEX_3DTN",
+            "numOutputs": 4,
+            "uniforms": [
+                {"_MVP_": "MVP"},
+                {"_TEX_DIFFUSE_": "diffuseMap"},
+                {"_MATERIAL_STRUCT_": "material"}
+            ]
+        },
+
+        {
+            "name": "defferedShader_pass2",
+            "vsName": "deffered2.vs",
+            "fsName": "deffered2.fs",
+            "vsVersion": 330,
+            "fsVersion": 330,
+            "inputFormat": "VERTEX_3DTN",
+            "numOutputs": 1,
+            "uniforms": [
+                {"_TEX_DIFFUSE_": "gBuffer[0]"},
+                {"_TEX_NORMAL_": "gBuffer[1]"},
+                {"_TEX_POSITION_": "gBuffer[2]"},
+                {"_LIGHT_STRUCT_": "lights"},
+                {"_NUM_LIGHTS_": "numLights"}
+            ]
         }
     ],
 
